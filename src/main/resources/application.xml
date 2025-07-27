@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean name="user1" class="com.example.demo.pojo.User">
+    <bean id="user1" name="John,Doe,john@email.com" class="com.example.demo.pojo.User">
         <constructor-arg name="firstName" type="java.lang.String" value="John"/>
         <constructor-arg name="lastName" type="java.lang.String" value="Doe"/>
         <constructor-arg name="email" type="java.lang.String" value="john@email.com"/>

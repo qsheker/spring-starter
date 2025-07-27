@@ -7,10 +7,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class DemoApplication {
-
 	public static void main(String[] args) {
 		var context = new ClassPathXmlApplicationContext("application.xml");
-		System.out.println(context.getBean(User.class));
+		var user1 = context.getBean("john", User.class);
+		System.out.println(user1);
 	}
 
 }
