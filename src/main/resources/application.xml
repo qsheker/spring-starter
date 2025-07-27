@@ -4,9 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="user1" name="John,Doe,john@email.com" class="com.example.demo.pojo.User">
-        <constructor-arg name="firstName" type="java.lang.String" value="John"/>
-        <constructor-arg name="lastName" type="java.lang.String" value="Doe"/>
-        <constructor-arg name="email" type="java.lang.String" value="john@email.com"/>
+        <property name="lastName" value="Doe"/>
+        <property name="firstName" value="John"/>
+        <property name="email" value="john@email.com"/>
     </bean>
 
     <bean id="userRepository" class = "com.example.demo.repositories.UserRepository"/>
@@ -14,6 +14,8 @@
     <bean id="userService" class = "com.example.demo.services.UserService" factory-method="of">
         <constructor-arg ref = "userRepository"></constructor-arg>
     </bean>
+
+
 
 
 </beans>
