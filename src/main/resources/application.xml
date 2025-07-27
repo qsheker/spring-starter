@@ -9,6 +9,11 @@
         <constructor-arg name="email" type="java.lang.String" value="john@email.com"/>
     </bean>
 
+    <bean id="userRepository" class = "com.example.demo.repositories.UserRepository"/>
+
+    <bean id="userService" class = "com.example.demo.services.UserService" factory-method="of">
+        <constructor-arg ref = "userRepository"></constructor-arg>
+    </bean>
 
 
 </beans>
