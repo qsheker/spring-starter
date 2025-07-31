@@ -3,7 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="user1" name="John,Doe,john@email.com" class="com.example.demo.pojo.User">
+    <bean id="user1" name="John,Doe,john@email.com" class="com.example.demo.pojo.User"
+          scope="prototype"
+          init-method="init"
+          destroy-method="cleanup">
+
         <property name="lastName" value="Doe"/>
         <property name="firstName" value="John"/>
         <property name="email" value="john@email.com"/>

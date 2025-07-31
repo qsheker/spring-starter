@@ -1,5 +1,8 @@
 package com.example.demo.pojo;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
 public class User {
     private String firstName;
     private String lastName;
@@ -46,5 +49,15 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @PostConstruct
+    public void init(){
+        System.out.println("initializing the user");
+    }
+
+    @PreDestroy
+    public void cleanup(){
+        System.out.println("destroying the user");
     }
 }
