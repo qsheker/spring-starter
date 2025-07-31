@@ -9,9 +9,9 @@
         <property name="email" value="john@email.com"/>
     </bean>
 
-    <bean id="userRepository" class = "com.example.demo.repositories.UserRepository"/>
+    <bean id="userRepository" class = "com.example.demo.repositories.UserRepository" scope="singleton"/>
 
-    <bean id="userService" class = "com.example.demo.services.UserService" factory-method="of">
+    <bean id="userService" class = "com.example.demo.services.UserService" factory-method="of" scope="prototype">
         <constructor-arg ref = "userRepository"></constructor-arg>
     </bean>
 
