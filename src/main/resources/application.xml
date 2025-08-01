@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                             http://www.springframework.org/schema/beans/spring-beans.xsd
+                             http://www.springframework.org/schema/context
+                             http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:property-placeholder location="classpath:application.properties"/>
+<!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
+<!--        <property name="location" value="application.properties"/>-->
+<!--    </bean>-->
 
     <bean id="user1" name="John,Doe,john@email.com" class="com.example.demo.pojo.User"
           scope="prototype"
           init-method="init"
           destroy-method="cleanup">
 
-        <property name="lastName" value="Doe"/>
-        <property name="firstName" value="John"/>
-        <property name="email" value="john@email.com"/>
+        <property name="firstName" value="${user.firstname}"/>
+        <property name="lastName" value="${user.lastname}"/>
+        <property name="email" value="${user.email}"/>
     </bean>
 
     <bean id="userRepository" class = "com.example.demo.repositories.UserRepository" scope="singleton"/>
@@ -18,8 +27,4 @@
     <bean id="userService" class = "com.example.demo.services.UserService" factory-method="of" scope="prototype">
         <constructor-arg ref = "userRepository"></constructor-arg>
     </bean>
-
-
-
-
 </beans>
