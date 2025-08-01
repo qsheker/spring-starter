@@ -11,16 +11,28 @@
 <!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
 <!--        <property name="location" value="application.properties"/>-->
 <!--    </bean>-->
+    <bean id="enabledBeanRegistry" class="com.example.demo.bfpp.EnabledBeanRegistry"/>
 
     <bean id="user1" name="John,Doe,john@email.com" class="com.example.demo.pojo.User"
-          scope="prototype"
           init-method="init"
           destroy-method="cleanup">
 
         <property name="firstName" value="${user.firstname}"/>
         <property name="lastName" value="${user.lastname}"/>
         <property name="email" value="${user.email}"/>
+        <property name="enabled" value="true"/>
     </bean>
+
+    <bean id="user2" name="Dex, Morgan" class="com.example.demo.pojo.User"
+          init-method="init"
+          destroy-method="cleanup">
+
+        <property name="firstName" value="Dexter"/>
+        <property name="lastName" value="Morgan"/>
+        <property name="email" value="dex@email.com"/>
+        <property name="enabled" value="true"/>
+    </bean>
+
 
     <bean id="userRepository" class = "com.example.demo.repositories.UserRepository" scope="singleton"/>
 

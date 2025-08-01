@@ -7,15 +7,15 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private boolean enabled = false;
 
-    public User(){
+    public User(){}
 
-    }
-
-    public User(String firstName, String lastName, String email) {
+    public User(String firstName, String lastName, String email,boolean enabled) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.enabled = enabled;
     }
 
     public String getFirstName() {
@@ -42,6 +42,12 @@ public class User {
         this.email = email;
     }
 
+    public boolean getEnabled() {
+        return enabled;
+    }
+    public void setEnabled(boolean enabled){
+        this.enabled = enabled;
+    }
     @Override
     public String toString() {
         return "User{" +
