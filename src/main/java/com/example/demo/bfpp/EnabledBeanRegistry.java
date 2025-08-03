@@ -5,12 +5,13 @@ import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.TypedStringValue;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-
+@Component
 public class EnabledBeanRegistry implements BeanFactoryPostProcessor{
     private List<String> enabledBeanNames = new ArrayList<>();
 

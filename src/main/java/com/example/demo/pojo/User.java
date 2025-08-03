@@ -2,12 +2,15 @@ package com.example.demo.pojo;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import org.springframework.beans.factory.annotation.Value;
 
 public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private boolean enabled = false;
+
+    @Value("${user.optional.enabled}")
+    private boolean enabled;
 
     public User(){}
 
