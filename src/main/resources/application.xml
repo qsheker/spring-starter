@@ -8,22 +8,9 @@
                              http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <context:annotation-config/>
-    <context:component-scan base-package="com.example.demo"/>
-    <context:property-placeholder location="classpath:application.properties"/>
-
-    <bean id="user1" name="John,Doe,john@email.com" class="com.example.demo.pojo.User">
-
-        <property name="firstName" value="${user.firstname}"/>
-        <property name="lastName" value="${user.lastname}"/>
-        <property name="email" value="${user.email}"/>
-        <property name="enabled" value="true"/>
-    </bean>
-
-    <bean id="user2" name="Dex, Morgan" class="com.example.demo.pojo.User">
-
-        <property name="firstName" value="Dexter"/>
-        <property name="lastName" value="Morgan"/>
-        <property name="email" value="dex@email.com"/>
-        <property name="enabled" value="true"/>
-    </bean>
+<!--    <context:component-scan base-package="com.example.demo"-->
+<!--                            annotation-config="true"-->
+<!--                            use-default-filters="true"-->
+<!--    />-->
+<!--    <context:property-placeholder location="classpath:application.properties"/>-->
 </beans>
