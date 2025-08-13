@@ -10,11 +10,6 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "com.example.demo",
-        useDefaultFilters = true,
-        includeFilters =  @ComponentScan.Filter(type = FilterType.ANNOTATION)
-)
 public class ApplicationConfiguration {
 
     @Bean
