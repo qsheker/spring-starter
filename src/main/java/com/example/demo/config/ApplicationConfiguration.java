@@ -7,18 +7,11 @@ import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.*;
 
 @Configuration
 public class ApplicationConfiguration {
-
-    @Bean
-    public User user1(@Value("${user.firstname}") String firstName,
-                      @Value("${user.lastname}") String lastName,
-                      @Value("${user.email}") String email,
-                      @Value("${user.optional.enabled}") boolean enabled) {
-        return new User(firstName, lastName, email, enabled);
-    }
 
     @Bean
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -42,5 +35,6 @@ public class ApplicationConfiguration {
         System.out.println("hello from prod");
         return new User("Madiyar","Maksutov","bober@mail.com",true);
     }
+
 
 }

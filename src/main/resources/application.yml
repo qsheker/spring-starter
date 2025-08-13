@@ -1,11 +1,7 @@
 spring:
   application: demo
 
-user:
-  firstname: john
-  lastname: doe
-  email: john@email.com
-  optional:
-    enabled: false
-
-mode: dev
+server:
+  host: localhost
+  port: 8080
+  sslEnabled: true
