@@ -21,9 +21,9 @@ public class Product extends BaseEntity{
     private Double price;
 
     @Column(nullable = false)
-    private int stock;
+    private Integer stock;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 }
