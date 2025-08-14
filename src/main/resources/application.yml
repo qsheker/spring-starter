@@ -1,6 +1,12 @@
 spring:
   application: demo
 
+  datasource:
+    username: postgres
+    password: 2205
+    url: jdbc:postgresql://localhost:5433/postgres
+    driver-class-name: org.postgresql.Driver
+
 server:
   host: localhost
   port: 8080
