@@ -30,8 +30,8 @@ INSERT INTO orders (order_date, status, total_price, user_id) VALUES
                                                                   ('2025-08-05 09:45:00', 'COMPLETED', 1499.00, 1);
 
 -- Order Items
-INSERT INTO order_items (quantity, product_id, order_id) VALUES
-                                                             (1, 1, 1), -- Smartphone X100
-                                                             (1, 2, 1), -- Wireless Headphones
-                                                             (1, 7, 2), -- Women's Summer Dress
-                                                             (1, 3, 3); -- Gaming Laptop Z
+INSERT INTO order_items (quantity, price, product_id, order_id) VALUES
+                                                                    (1, 699.99, 1, 1), -- Smartphone X100
+                                                                    (1, 199.99, 2, 1), -- Wireless Headphones
+                                                                    (1, 45.00, 7, 2),  -- Women's Summer Dress
+                                                                    (1, 1499.00, 3, 3); -- Gaming Laptop Z

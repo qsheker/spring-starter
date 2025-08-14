@@ -43,6 +43,7 @@ CREATE TABLE orders (
 CREATE TABLE order_items (
                              id BIGSERIAL PRIMARY KEY,
                              quantity INT NOT NULL,
+                             price DECIMAL(10,2) NOT NULL,
                              product_id BIGINT REFERENCES products(id) ON DELETE CASCADE,
                              order_id BIGINT REFERENCES orders(id) ON DELETE CASCADE
 );
