@@ -46,4 +46,16 @@ public class UserService {
         }
         return false;
     }
+
+    public boolean updateUserEmailById(Long id, String email) {
+        var user = userRepository.findById(id).orElse(null);
+        if(user != null){
+            return false;
+        }
+        if(user.getEmail().equals(email)){
+            return false;
+        }
+        int updated = userRepository.updateUserEmailById(id, email);
+        return updated > 0;
+    }
 }
