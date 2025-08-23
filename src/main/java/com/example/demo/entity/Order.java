@@ -19,7 +19,7 @@ public class Order extends BaseEntity{
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "status")
     private OrderStatus orderStatus;
 
     @Column(nullable = false)
