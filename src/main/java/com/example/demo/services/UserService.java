@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -57,5 +58,11 @@ public class UserService {
         }
         int updated = userRepository.updateUserEmailById(id, email);
         return updated > 0;
+    }
+    public List<User> findAllWithOrders(){
+        return userRepository.findAllWithOrders();
+    }
+    public Optional<User> findUserWithOrdersById(Long id){
+        return userRepository.findUserWithOrdersById(id);
     }
 }
