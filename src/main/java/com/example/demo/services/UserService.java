@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.dto.UserNameAndEmail;
 import com.example.demo.entity.User;
 import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
 
     public User create(User user) {
         return userRepository.save(user);
@@ -64,5 +66,8 @@ public class UserService {
     }
     public Optional<User> findUserWithOrdersById(Long id){
         return userRepository.findUserWithOrdersById(id);
+    }
+    public Optional<UserNameAndEmail> findUserById(Long id){
+        return userRepository.findUserById(id);
     }
 }
