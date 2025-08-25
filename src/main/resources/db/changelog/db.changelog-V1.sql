@@ -1,11 +1,6 @@
--- Drop tables if they exist
-DROP TABLE IF EXISTS order_items;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS users;
+--liquibase formatted sql
 
--- Users table
+--changeset qsheker:1
 CREATE TABLE users (
                        id BIGSERIAL PRIMARY KEY,
                        name VARCHAR(100) NOT NULL,
@@ -14,13 +9,13 @@ CREATE TABLE users (
                        role VARCHAR(50) NOT NULL
 );
 
--- Categories table
+--changeset qsheker:2
 CREATE TABLE categories (
                             id BIGSERIAL PRIMARY KEY,
                             name VARCHAR(100) NOT NULL
 );
 
--- Products table
+--changeset qsheker:3
 CREATE TABLE products (
                           id BIGSERIAL PRIMARY KEY,
                           name VARCHAR(150) NOT NULL,
@@ -30,7 +25,7 @@ CREATE TABLE products (
                           category_id BIGINT REFERENCES categories(id) ON DELETE SET NULL
 );
 
--- Orders table
+--changeset qsheker:4
 CREATE TABLE orders (
                         id BIGSERIAL PRIMARY KEY,
                         order_date TIMESTAMP NOT NULL,
@@ -39,7 +34,7 @@ CREATE TABLE orders (
                         user_id BIGINT REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Order Items table
+--changeset qsheker:5
 CREATE TABLE order_items (
                              id BIGSERIAL PRIMARY KEY,
                              quantity INT NOT NULL,

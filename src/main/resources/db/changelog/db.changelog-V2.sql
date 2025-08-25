@@ -1,17 +1,20 @@
--- Users
+--liquibase formatted sql
+
+
+--changeset qsheker:1
 INSERT INTO users (name, email, password, role) VALUES
                                                     ('John Smith', 'john@example.com', 'pass123', 'CUSTOMER'),
                                                     ('Emily Johnson', 'emily@example.com', 'pass456', 'CUSTOMER'),
                                                     ('Michael Brown', 'michael@example.com', 'pass789', 'ADMIN');
 
--- Categories
+--changeset qsheker:2
 INSERT INTO categories (name) VALUES
                                   ('Electronics'),
                                   ('Books'),
                                   ('Clothing'),
                                   ('Home Appliances');
 
--- Products
+--changeset qsheker:3
 INSERT INTO products (name, description, price, stock, category_id) VALUES
                                                                         ('Smartphone X100', 'Latest 5G smartphone with AMOLED display', 699.99, 50, 1),
                                                                         ('Wireless Headphones', 'Noise cancelling over-ear headphones', 199.99, 30, 1),
@@ -23,13 +26,13 @@ INSERT INTO products (name, description, price, stock, category_id) VALUES
                                                                         ('Blender Pro', 'High-speed kitchen blender', 89.99, 10, 4),
                                                                         ('Microwave Oven 700W', 'Compact microwave for small kitchens', 110.00, 8, 4);
 
--- Orders
+--changeset qsheker:4
 INSERT INTO orders (order_date, status, total_price, user_id) VALUES
                                                                   ('2025-08-01 10:15:00', 'COMPLETED', 899.98, 1),
                                                                   ('2025-08-03 14:30:00', 'PENDING', 45.00, 2),
                                                                   ('2025-08-05 09:45:00', 'COMPLETED', 1499.00, 1);
 
--- Order Items
+--changeset qsheker:5
 INSERT INTO order_items (quantity, price, product_id, order_id) VALUES
                                                                     (1, 699.99, 1, 1), -- Smartphone X100
                                                                     (1, 199.99, 2, 1), -- Wireless Headphones
