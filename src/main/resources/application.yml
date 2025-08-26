@@ -1,6 +1,8 @@
 spring:
-  application: demo
-
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
   datasource:
     username: postgres
     password: 2205
@@ -11,7 +13,6 @@ spring:
       show_sql: true
       format_sql: true
       hbm2ddl: validate
-
 
 server:
   host: localhost
