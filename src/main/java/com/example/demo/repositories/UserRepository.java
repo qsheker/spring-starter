@@ -1,7 +1,6 @@
 package com.example.demo.repositories;
 
-import com.example.demo.dto.UserNameAndEmail;
-import com.example.demo.entity.User;
+import com.example.demo.domain.entity.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -28,8 +27,4 @@ public interface UserRepository extends JpaRepository<User, Long>{
 
     @EntityGraph(attributePaths = {"orders"})
     Optional<User> findUserWithOrdersById(Long id);
-
-    @Query(value = "select u.name, u.email from users as u where u.id = :id",
-            nativeQuery = true)
-    Optional<UserNameAndEmail> findUserById(Long id);
 }
