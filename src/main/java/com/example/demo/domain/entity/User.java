@@ -1,12 +1,12 @@
-package com.example.demo.entity;
+package com.example.demo.domain.entity;
 
 
 import com.example.demo.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString(exclude = "orders")
 @Table(name = "users")
 public class User extends BaseEntity{
 
