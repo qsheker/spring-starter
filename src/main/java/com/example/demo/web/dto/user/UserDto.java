@@ -1,4 +1,12 @@
 package com.example.demo.web.dto.user;
 
-public class UserDto {
-}
+import com.example.demo.enums.Role;
+
+
+
+public record UserDto(
+        Long id,
+        String name,
+        String email,
+        Role role
+){}
