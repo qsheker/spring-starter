@@ -3,7 +3,6 @@ package com.example.demo.services.impl;
 import com.example.demo.domain.entity.OrderItem;
 import com.example.demo.repository.OrderItemRepository;
 import com.example.demo.services.OrderItemService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
