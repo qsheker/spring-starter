@@ -1,17 +1,14 @@
 package com.example.demo.repository.mappers.category;
 
-import com.example.demo.domain.entity.Category;
-import com.example.demo.repository.mappers.Mapper;
-import com.example.demo.web.dto.category.CategoryDto;
-import org.springframework.stereotype.Component;
 
-@Component
-public class CategoryMapper implements Mapper<Category, CategoryDto> {
-    @Override
-    public CategoryDto mapTo(Category clazz) {
-        return new CategoryDto(
-                clazz.getId(),
-                clazz.getName()
-        );
-    }
+import com.example.demo.web.dto.category.CategoryDto;
+import com.example.demo.domain.entity.Category;
+import org.mapstruct.Mapper;
+
+
+@Mapper(componentModel = "spring")
+public interface CategoryMapper{
+    CategoryDto toDto(Category category);
+
+    Category toEntity(CategoryDto categoryDto);
 }
