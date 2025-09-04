@@ -1,10 +1,12 @@
 package com.example.demo.domain.entity;
 
+import com.example.demo.domain.converter.OrderStatusConverter;
 import com.example.demo.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,9 +23,9 @@ public class Order extends BaseEntity{
     @Column(nullable = false)
     private LocalDateTime orderDate;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "status")
-    private OrderStatus orderStatus;
+    @Convert(converter = OrderStatusConverter.class)
+    @Column(nullable = false)
+    private OrderStatus status;
 
     @Column(nullable = false,precision = 10, scale = 2)
     private BigDecimal totalPrice;
@@ -40,9 +42,10 @@ public class Order extends BaseEntity{
         this.orderDate = LocalDateTime.now();
     }
 
-    public BigDecimal getTotalPrice() {
+    public BigDecimal calculateTotalPrice() {
         return items.stream()
                 .map(item->item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
 }

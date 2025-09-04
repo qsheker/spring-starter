@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "products")
+@ToString(exclude = {"orderItems"})
 public class Product extends BaseEntity{
 
     @Column(nullable = false)
@@ -35,5 +37,7 @@ public class Product extends BaseEntity{
 
     @OneToMany(mappedBy = "product")
     private List<OrderItem> orderItems = new ArrayList<>();
+
+
 
 }
