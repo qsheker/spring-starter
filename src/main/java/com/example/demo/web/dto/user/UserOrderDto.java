@@ -1,4 +1,13 @@
 package com.example.demo.web.dto.user;
 
-public class UserOrderDto {
+import com.example.demo.web.dto.order.OrderDto;
+
+import java.util.List;
+
+public record UserOrderDto(
+        Long id,
+        String name,
+        String email,
+        List<OrderDto> orders
+) {
 }
