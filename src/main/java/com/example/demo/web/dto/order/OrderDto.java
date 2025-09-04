@@ -10,10 +10,8 @@ import java.util.List;
 
 public record OrderDto(
         Long id,
-        LocalDateTime orderDate,
-        OrderStatus orderStatus,
+        OrderStatus status,
         BigDecimal totalPrice,
-        UserShortDto user,
         List<OrderItemDto> items
 ){
 }
