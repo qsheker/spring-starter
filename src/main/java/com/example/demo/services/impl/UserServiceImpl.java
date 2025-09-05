@@ -30,11 +30,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User deleteUserById(Long id) {
+    public void deleteUserById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("User not found with id: " + id));
         userRepository.delete(user);
-        return user;
     }
 
     @Override
@@ -53,7 +52,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("User not found with id: " + id));
         if(user.getEmail().equalsIgnoreCase(email)){
-            return false;
+            throw new EntityNotFoundException("Can not change the email!");
         }
         int updated = userRepository.updateUserEmailById(id,email);
         return updated>0;
