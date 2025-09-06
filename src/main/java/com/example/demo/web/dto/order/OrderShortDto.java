@@ -1,4 +1,12 @@
 package com.example.demo.web.dto.order;
 
-public class OrderShortDto {
+import com.example.demo.enums.OrderStatus;
+
+import java.math.BigDecimal;
+
+public record OrderShortDto (
+        Long id,
+        OrderStatus status,
+        BigDecimal price
+){
 }
