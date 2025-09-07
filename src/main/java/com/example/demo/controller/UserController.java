@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.entity.Order;
 import com.example.demo.domain.entity.User;
 import com.example.demo.repository.mappers.user.UserMapper;
 import com.example.demo.repository.mappers.user.UserOrderMapper;
@@ -12,7 +13,9 @@ import com.example.demo.web.dto.user.UserRequestDto;
 import com.example.demo.web.dto.user.UserShortDto;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -68,8 +71,8 @@ public class UserController {
         userService.deleteUserById(id);
     }
     @PutMapping("/{id}")
-    public UserDto update(@PathVariable Long id, @RequestBody  UserDto userDto){
-        User user = userMapper.toEntity(userDto);
+    public UserDto update(@PathVariable Long id, @RequestBody  UserRequestDto userRequestDto){
+        User user = userRequestMapper.toEntity(userRequestDto);
         user.setId(id);
         User updated = userService.save(user);
         return userMapper.toDto(updated);
@@ -82,8 +85,17 @@ public class UserController {
     }
     @PatchMapping("/{id}/{email}")
     public UserShortDto updateEmail(@PathVariable Long id,@PathVariable String email){
-        userService.updateUserEmailById(id,email);
-        User user = userService.findById(id);
+        User user = userService.updateUserEmailById(id,email);
         return userShortMapper.toDto(user);
+    }
+    @GetMapping("orders/total/{id}")
+    public BigDecimal getTotalPriceOfUserProductById(@PathVariable("id") Long id){
+        User user = userService.findById(id);
+        Set<Order> orders = user.getOrders();
+        return orders.stream()
+                .flatMap(order -> order.getItems().stream())
+                .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
     }
 }
