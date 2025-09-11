@@ -6,6 +6,7 @@ import com.example.demo.repository.OrderRepository;
 import com.example.demo.services.OrderService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -49,5 +50,23 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Order with id: "+id+" not found"));
         return order;
+    }
+
+    @Override
+    @Transactional
+    public Order payForOrder(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Order with id: "+id+" not found"));
+        order.setStatus(OrderStatus.PAID);
+        return orderRepository.save(order);
+    }
+
+    @Override
+    @Transactional
+    public Order cancelOrder(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Order with id: "+id+" not found"));
+        order.setStatus(OrderStatus.CANCELLED);
+        return orderRepository.save(order);
     }
 }
