@@ -3,21 +3,21 @@ package com.example.demo.domain.entity;
 import com.example.demo.domain.converter.OrderStatusConverter;
 import com.example.demo.enums.OrderStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "orders")
+@EqualsAndHashCode(exclude = "user")
 public class Order extends BaseEntity{
 
     @Column(nullable = false)
@@ -35,11 +35,12 @@ public class Order extends BaseEntity{
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> items = new ArrayList<>();
+    private Set<OrderItem> items = new HashSet<>();
 
     @PrePersist
     public void PrePersist() {
         this.orderDate = LocalDateTime.now();
+        this.status = OrderStatus.NEW;
     }
 
     public BigDecimal calculateTotalPrice() {

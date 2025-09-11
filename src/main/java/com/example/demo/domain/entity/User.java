@@ -3,13 +3,12 @@ package com.example.demo.domain.entity;
 
 import com.example.demo.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -18,6 +17,7 @@ import java.util.List;
 @Entity
 @ToString(exclude = "orders")
 @Table(name = "users")
+@EqualsAndHashCode(exclude = "orders")
 public class User extends BaseEntity{
 
     @Column(nullable = false)
@@ -33,9 +33,8 @@ public class User extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Order> orders = new ArrayList<>();
+    private Set<Order> orders = new HashSet<>();
 
     public void addOrder(Order order){
         orders.add(order);

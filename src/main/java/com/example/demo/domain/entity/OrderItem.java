@@ -2,10 +2,7 @@ package com.example.demo.domain.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -14,6 +11,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Entity
 @Table(name = "order_items")
+@ToString(exclude = {"order", "product"})
+@EqualsAndHashCode(exclude = {"order", "product"})
 public class OrderItem extends BaseEntity {
 
     @Column(nullable = false, precision = 10, scale = 2)
