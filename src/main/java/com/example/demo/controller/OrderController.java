@@ -7,9 +7,11 @@ import com.example.demo.repository.mappers.order.OrderRequestMapper;
 import com.example.demo.repository.mappers.order.OrderShortMapper;
 import com.example.demo.services.OrderService;
 import com.example.demo.services.UserService;
+import com.example.demo.web.dto.card.CardRequestDto;
 import com.example.demo.web.dto.order.OrderDto;
 import com.example.demo.web.dto.order.OrderRequestDto;
 import com.example.demo.web.dto.order.OrderShortDto;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,6 +57,7 @@ public class OrderController {
     public void deleteOrder(@PathVariable("orderId") Long id){
         orderService.deleteOrderById(id);
     }
+
     @PostMapping
     public OrderShortDto create(@RequestBody OrderRequestDto orderRequestDto){
         Order order = orderRequestMapper.toEntity(orderRequestDto);
@@ -64,6 +67,16 @@ public class OrderController {
     @GetMapping("/{orderId}")
     public OrderShortDto gerOrderById(@PathVariable("orderId") Long id){
         Order order = orderService.findOrderById(id);
+        return orderShortMapper.toDto(order);
+    }
+    @PostMapping("/{id}/pay")
+    public OrderShortDto payForOrder(@PathVariable("id") Long id, @Validated @RequestBody CardRequestDto cardRequestDto){
+        Order order = orderService.payForOrder(id, cardRequestDto);
+        return orderShortMapper.toDto(order);
+    }
+    @PostMapping("/{id}/cancel")
+    public OrderShortDto cancelOrder(@PathVariable("id") Long id){
+        Order order = orderService.cancelOrder(id);
         return orderShortMapper.toDto(order);
     }
 }
