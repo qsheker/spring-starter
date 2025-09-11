@@ -17,4 +17,9 @@ public interface OrderService {
     List<Order> findOrderByUserId(Long id);
 
     List<Order> findOrdersByOrderStatus(OrderStatus orderStatus);
+
+    Order payForOrder(Long id);
+
+    Order cancelOrder(Long id);
+
 }
