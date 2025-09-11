@@ -1,8 +1,10 @@
 package com.example.demo.web.dto.user;
 
-public record UserShortDto(
-        Long id,
-        String name,
-        String email
-) {
+import lombok.Data;
+
+@Data
+public class UserShortDto{
+    private Long id;
+    private String name;
+    private String email;
 }

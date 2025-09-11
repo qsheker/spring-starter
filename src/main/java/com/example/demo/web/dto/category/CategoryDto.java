@@ -1,6 +1,8 @@
 package com.example.demo.web.dto.category;
 
-public record CategoryDto(
-        String name
-) {
+import lombok.Data;
+
+@Data
+public class CategoryDto{
+    private String name;
 }

@@ -1,12 +1,13 @@
 package com.example.demo.web.dto.order;
 
 import com.example.demo.enums.OrderStatus;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
-public record OrderShortDto (
-        Long id,
-        OrderStatus status,
-        BigDecimal price
-){
+@Data
+public class OrderShortDto {
+    private Long id;
+    private OrderStatus status;
+    private BigDecimal price;
 }

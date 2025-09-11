@@ -2,16 +2,15 @@ package com.example.demo.web.dto.order;
 
 import com.example.demo.enums.OrderStatus;
 import com.example.demo.web.dto.orderItem.OrderItemDto;
-import com.example.demo.web.dto.user.UserShortDto;
+import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
-public record OrderDto(
-        Long id,
-        OrderStatus status,
-        BigDecimal totalPrice,
-        List<OrderItemDto> items
-){
+@Data
+public class OrderDto {
+    private Long id;
+    private OrderStatus status;
+    private BigDecimal totalPrice;
+    private List<OrderItemDto> items;
 }
