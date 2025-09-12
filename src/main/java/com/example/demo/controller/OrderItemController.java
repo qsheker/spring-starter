@@ -18,13 +18,13 @@ public class OrderItemController {
         this.orderItemService = orderItemService;
     }
 
-    @GetMapping("{orderId}")
+    @GetMapping("/order/{orderId}")
     public List<OrderItemDto> getOrderItemByOrderId(@PathVariable("orderId") Long id){
         return orderItemService.findByOrderId(id).stream()
                 .map(orderItem -> orderItemMapper.toDto(orderItem))
                 .toList();
     }
-    @GetMapping("{productId}")
+    @GetMapping("/product/{productId}")
     public List<OrderItemDto> getOrderItemByProductId(@PathVariable("productId") Long id){
         return orderItemService.findByProductId(id).stream()
                 .map(orderItem -> orderItemMapper.toDto(orderItem))
