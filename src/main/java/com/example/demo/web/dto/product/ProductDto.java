@@ -11,8 +11,6 @@ import java.math.BigDecimal;
 
 @Data
 public class ProductDto {
-    @NotNull(message = "Id must not be null!")
-    private Long id;
 
     @NotBlank(message = "Name cannot be blank!")
     private String name;
