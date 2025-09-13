@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.domain.entity.User;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface UserService {
@@ -15,9 +16,11 @@ public interface UserService {
 
     List<User> findAll();
 
-    boolean updateUserEmailById(Long id, String email);
+    User updateUserEmailById(Long id, String email);
 
     List<User> findAllWithOrders();
 
     User findUserWithOrdersById(Long id);
+
+    BigDecimal getTotalPriceOfUserProductById(Long id);
 }
