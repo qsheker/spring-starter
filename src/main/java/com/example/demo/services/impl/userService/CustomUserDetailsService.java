@@ -3,6 +3,7 @@ package com.example.demo.services.impl.userService;
 import com.example.demo.domain.entity.User;
 import com.example.demo.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,12 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CustomUserDetailService implements UserDetailsService {
-    private final UserRepository userRepository;
-
-    public CustomUserDetailService(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
+public class CustomUserDetailsService implements UserDetailsService {
+    @Autowired
+    private  UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,7 +26,7 @@ public class CustomUserDetailService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getName(),
                 user.getPassword(),
-                List.of(new SimpleGrantedAuthority())
+                List.of(new SimpleGrantedAuthority("ROLE_USER"))
         );
     }
 }
