@@ -1,12 +1,16 @@
 package com.example.demo.services.impl;
 
+import com.example.demo.domain.entity.Order;
 import com.example.demo.domain.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,15 +52,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUserEmailById(Long id, String email) {
+    @Transactional
+    public User updateUserEmailById(Long id, String email) {
         User user = userRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("User not found with id: " + id));
         if(user.getEmail().equalsIgnoreCase(email)){
-            throw new EntityNotFoundException("Can not change the email!");
+            throw new IllegalArgumentException("Can not change the email!");
         }
-        int updated = userRepository.updateUserEmailById(id,email);
-        return updated>0;
+        user.setEmail(email);
+        return user;
 
+    }
+
+    @Override
+    public BigDecimal getTotalPriceOfUserProductById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(
+                ()-> new EntityNotFoundException("User not found with id: " + id));
+        return userRepository.getTotalPriceByUserId(id);
     }
 
     @Override
