@@ -1,11 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.entity.Product;
-import com.example.demo.repository.mappers.product.ProductMapper;
-import com.example.demo.repository.mappers.product.ProductShortMapper;
+import com.example.demo.web.dto.mappers.product.ProductMapper;
+import com.example.demo.web.dto.mappers.product.ProductShortMapper;
 import com.example.demo.services.ProductService;
 import com.example.demo.web.dto.product.ProductDto;
 import com.example.demo.web.dto.product.ProductShortDto;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductShortDto create(@RequestBody ProductDto productDto){
+    public ProductShortDto create(@Valid @RequestBody ProductDto productDto){
         Product entity = productMapper.toEntity(productDto);
         Product product = productService.save(entity);
         return productShortMapper.toDto(product);
@@ -39,7 +40,7 @@ public class ProductController {
         return productShortMapper.toDto(productService.findById(id));
     }
     @PutMapping("/{id}")
-    public ProductShortDto update(@PathVariable("id") Long id,@RequestBody ProductDto productDto){
+    public ProductShortDto update(@PathVariable("id") Long id,@Valid @RequestBody ProductDto productDto){
         Product product = productMapper.toEntity(productDto);
         product.setId(id);
         return productShortMapper.toDto(productService.save(product));

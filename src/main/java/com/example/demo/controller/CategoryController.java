@@ -1,9 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.entity.Category;
-import com.example.demo.repository.mappers.category.CategoryMapper;
+import com.example.demo.web.dto.mappers.category.CategoryMapper;
 import com.example.demo.services.CategoryService;
 import com.example.demo.web.dto.category.CategoryDto;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class CategoryController {
                 .toList();
     }
     @PostMapping
-    public CategoryDto create(@RequestBody CategoryDto categoryDto){
+    public CategoryDto create(@Valid @RequestBody CategoryDto categoryDto){
         Category category = categoryMapper.toEntity(categoryDto);
         return categoryMapper.toDto(categoryService.save(category));
     }

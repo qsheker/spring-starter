@@ -1,21 +1,19 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.entity.Order;
 import com.example.demo.domain.entity.User;
-import com.example.demo.repository.mappers.user.UserMapper;
-import com.example.demo.repository.mappers.user.UserOrderMapper;
-import com.example.demo.repository.mappers.user.UserRequestMapper;
-import com.example.demo.repository.mappers.user.UserShortMapper;
+import com.example.demo.web.dto.mappers.user.Director.UserDirector;
+import com.example.demo.web.dto.mappers.user.UserMapper;
+import com.example.demo.web.dto.mappers.user.UserOrderMapper;
+import com.example.demo.web.dto.mappers.user.UserRequestMapper;
+import com.example.demo.web.dto.mappers.user.UserShortMapper;
 import com.example.demo.services.UserService;
-import com.example.demo.web.dto.user.UserDto;
-import com.example.demo.web.dto.user.UserOrderDto;
-import com.example.demo.web.dto.user.UserRequestDto;
-import com.example.demo.web.dto.user.UserShortDto;
+import com.example.demo.web.dto.user.*;
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -27,13 +25,15 @@ public class UserController {
     private final UserOrderMapper userOrderMapper;
     private final UserRequestMapper userRequestMapper;
     private final UserShortMapper userShortMapper;
+    private final UserDirector userDirector;
 
-    public UserController(UserService userService, UserMapper userMapper, UserOrderMapper userOrderMapper, UserRequestMapper userRequestMapper, UserShortMapper userShortMapper){
+    public UserController(UserService userService, UserMapper userMapper, UserOrderMapper userOrderMapper, UserRequestMapper userRequestMapper, UserShortMapper userShortMapper, UserDirector userDirector){
         this.userService=userService;
         this.userMapper=userMapper;
         this.userOrderMapper = userOrderMapper;
         this.userRequestMapper = userRequestMapper;
         this.userShortMapper = userShortMapper;
+        this.userDirector = userDirector;
     }
 
     @GetMapping
@@ -71,14 +71,14 @@ public class UserController {
         userService.deleteUserById(id);
     }
     @PutMapping("/{id}")
-    public UserDto update(@PathVariable Long id, @RequestBody  UserRequestDto userRequestDto){
+    public UserDto update(@PathVariable Long id,@Valid @RequestBody  UserRequestDto userRequestDto){
         User user = userRequestMapper.toEntity(userRequestDto);
         user.setId(id);
         User updated = userService.save(user);
         return userMapper.toDto(updated);
     }
-    @PostMapping
-    public UserShortDto create( @RequestBody UserRequestDto userRequestDto){
+    @PostMapping("/register")
+    public UserShortDto register(@Valid @RequestBody UserRequestDto userRequestDto){
         User user = userRequestMapper.toEntity(userRequestDto);
         User saved = userService.save(user);
         return userShortMapper.toDto(saved);
@@ -89,13 +89,10 @@ public class UserController {
         return userShortMapper.toDto(user);
     }
     @GetMapping("orders/total/{id}")
-    public BigDecimal getTotalPriceOfUserProductById(@PathVariable("id") Long id){
+    public UserTotalPriceDto getTotalPriceOfUserOrderById(@PathVariable("id") Long id){
+        BigDecimal total = userService.getTotalPriceOfUserProductById(id);
         User user = userService.findById(id);
-        Set<Order> orders = user.getOrders();
-        return orders.stream()
-                .flatMap(order -> order.getItems().stream())
-                .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
+        UserTotalPriceDto userTotalPriceDto = userDirector.createUserWithTotalPrice(total, user);
+        return userTotalPriceDto;
     }
 }

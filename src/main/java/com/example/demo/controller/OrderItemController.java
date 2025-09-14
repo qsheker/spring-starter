@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.repository.mappers.orderItem.OrderItemMapper;
+import com.example.demo.web.dto.mappers.orderItem.OrderItemMapper;
 import com.example.demo.services.OrderItemService;
 import com.example.demo.web.dto.orderItem.OrderItemDto;
 import org.springframework.web.bind.annotation.*;
