@@ -5,6 +5,7 @@ import com.example.demo.domain.entity.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.services.ProductService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public Product findById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(()->new EntityNotFoundException("Product not found with id: "+id));
@@ -31,11 +33,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public Product save(Product product) {
         return productRepository.save(product);
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteProductById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(()->new EntityNotFoundException("Product not found with id: "+id));
@@ -58,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Product> findByStockGreaterThan(Integer stockIsGreaterThan) {
         return productRepository.findByStockGreaterThan(stockIsGreaterThan);
     }

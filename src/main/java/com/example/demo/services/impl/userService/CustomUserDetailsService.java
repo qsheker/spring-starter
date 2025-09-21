@@ -2,31 +2,25 @@ package com.example.demo.services.impl.userService;
 
 import com.example.demo.domain.entity.User;
 import com.example.demo.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.example.demo.web.dto.user.CurrentUserDetails;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    @Autowired
-    private  UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user =  userRepository.findUserByName(username).orElseThrow(
-                ()-> new EntityNotFoundException("User with name: "+username+" not found!")
-        );
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findUserByName(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getName(),
-                user.getPassword(),
-                List.of(new SimpleGrantedAuthority("ROLE_USER"))
-        );
+        return new CurrentUserDetails(user.getId(), user.getName(), user.getPassword());
     }
 }

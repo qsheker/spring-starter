@@ -4,7 +4,9 @@ import com.example.demo.domain.entity.Order;
 import com.example.demo.enums.OrderStatus;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.services.OrderService;
+import com.example.demo.web.dto.card.CardRequestDto;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +26,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @PreAuthorize("#id = authentication.principal.id or hasRole('ADMIN')")
     public List<Order> findOrderByUserId(Long id) {
         return orderRepository.findOrderByUserId(id);
     }
 
     @Override
+    @PreAuthorize("#id = authentication.principal.id or hasRole('ADMIN')")
     public void deleteOrderById(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Order with id: "+id+" not found"));
@@ -36,16 +40,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @PreAuthorize("#id = order.user.id or hasAnyRole('ADMIN')")
     public Order save(Order order) {
         return orderRepository.save(order);
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Order> findAll() {
         return orderRepository.findAll();
     }
 
     @Override
+    @PreAuthorize("#id = authentication.principal.id or hasRole('ADMIN')")
     public Order findOrderById(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Order with id: "+id+" not found"));
@@ -54,7 +61,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order payForOrder(Long id) {
+    @PreAuthorize("#id = authentication.principal.id")
+    public Order payForOrder(Long id, CardRequestDto cardRequestDto) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Order with id: "+id+" not found"));
         order.setStatus(OrderStatus.PAID);
@@ -63,6 +71,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
+    @PreAuthorize("#id = authentication.principal.id")
     public Order cancelOrder(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Order with id: "+id+" not found"));

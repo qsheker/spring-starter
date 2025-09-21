@@ -4,6 +4,7 @@ import com.example.demo.domain.entity.Category;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.services.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public Category findCategoryById(Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(()->new EntityNotFoundException("Category not found with id: "+id));
@@ -38,11 +40,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public Category save(Category category) {
         return categoryRepository.save(category);
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteCategoryById(Long id) {
         Category category = findCategoryById(id);
         categoryRepository.delete(category);
